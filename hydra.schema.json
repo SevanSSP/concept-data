@@ -1,0 +1,217 @@
+{
+    "title": "HydraInput",
+    "description": "Input to radiation diffraction calculations",
+    "type": "object",
+    "properties": {
+        "hull": {
+            "$ref": "#/definitions/HullGeometry"
+        },
+        "loading_condition": {
+            "$ref": "#/definitions/LoadingCondition"
+        },
+        "environmental_condition": {
+            "$ref": "#/definitions/WaveCondition"
+        }
+    },
+    "required": [
+        "hull",
+        "loading_condition",
+        "environmental_condition"
+    ],
+    "definitions": {
+        "HullGeometry": {
+            "title": "HullGeometry",
+            "description": "Hull geometry definition\n\nParameters\n----------\nmain_radius : float\n    Radius of outer main hull (m)\nheight : float\n    Hull depth/height (m)\nsymmetry : str\n    Model symmetry code\nbilgebox_rz : list\n    Coordinate pairs (radius from center line vs. height above baseline) defining the shape of the bilgebox.\ncutouts : list, optional\n    Azimuth (degrees) and width (degrees) of bilgebox cut outs.\nmoonpool_rz : list, optional\n    Coordinate pairs (radius from center line vs. height above baseline) defining the shape of the moonpool.\nmax_element_length : float, optional\n    Maximum length of elements in panel model (m)",
+            "type": "object",
+            "properties": {
+                "main_radius": {
+                    "title": "Main Radius",
+                    "type": "number"
+                },
+                "height": {
+                    "title": "Height",
+                    "type": "number"
+                },
+                "symmetry": {
+                    "title": "Symmetry",
+                    "type": "string"
+                },
+                "bilgebox_rz": {
+                    "title": "Bilgebox Rz",
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "cutouts": {
+                    "title": "Cutouts",
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "number"
+                                },
+                                {
+                                    "type": "boolean"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "moonpool_rz": {
+                    "title": "Moonpool Rz",
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    }
+                }
+            },
+            "required": [
+                "main_radius",
+                "height",
+                "symmetry",
+                "bilgebox_rz"
+            ]
+        },
+        "LoadingCondition": {
+            "title": "LoadingCondition",
+            "description": "Loading condition data\n\nParameters\n----------\ndraft : float\n    Draft (m)\ngm : float\n    Metacentric height (m)\nxcg : float\n    Centre of gravity x-coordinate (m)\nycg : float\n    Centre of gravity y-coordinate (m)\nvcg : float\n    Vertical centre of gravity (m)\nmass : float\n    Mass (kg)\nrixx : float\n    Radii of gyration about the x-axis (m)\nriyy : float\n    Radii of gyration about the y-axis (m)\nrizz : float\n    Radii of gyration about the z-axis (m)\ncd : float\n    Drag coefficient (-)\nca : float\n    Added mass coefficient (-)\ndamping_matrix : list, optional\n    Linear damping matrix\nrestoring_matrix : list, optional\n    Restoring stiffness matrix\nmoonpool_damping_ratio : float, optional\n    Moonpool damping as fraction of critical damping (-)",
+            "type": "object",
+            "properties": {
+                "draft": {
+                    "title": "Draft",
+                    "type": "number"
+                },
+                "gm": {
+                    "title": "Gm",
+                    "type": "number"
+                },
+                "xcg": {
+                    "title": "Xcg",
+                    "type": "number"
+                },
+                "ycg": {
+                    "title": "Ycg",
+                    "type": "number"
+                },
+                "vcg": {
+                    "title": "Vcg",
+                    "type": "number"
+                },
+                "mass": {
+                    "title": "Mass",
+                    "type": "number"
+                },
+                "rixx": {
+                    "title": "Rixx",
+                    "type": "number"
+                },
+                "riyy": {
+                    "title": "Riyy",
+                    "type": "number"
+                },
+                "rizz": {
+                    "title": "Rizz",
+                    "type": "number"
+                },
+                "cd": {
+                    "title": "Cd",
+                    "type": "number"
+                },
+                "ca": {
+                    "title": "Ca",
+                    "type": "number"
+                },
+                "damping_matrix": {
+                    "title": "Damping Matrix",
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "restoring_matrix": {
+                    "title": "Restoring Matrix",
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "moonpool_damping_ratio": {
+                    "title": "Moonpool Damping Ratio",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "draft",
+                "gm",
+                "xcg",
+                "ycg",
+                "vcg",
+                "mass",
+                "rixx",
+                "riyy",
+                "rizz",
+                "cd",
+                "ca"
+            ]
+        },
+        "WaveCondition": {
+            "title": "WaveCondition",
+            "description": "Wave condition data\n\nParameters\n----------\nwater_depth : float\n    Water depth (m)\nspectrum : str\n    Type of wave energy model spectrum e.g. 'jonswap'\nhs : float\n    Significant wave height (m)\ntp : float\n    Spectral peak period (s)\ngamma : float, optional\n    Spectral peak enhancement factor (-)\nsa : float, optional\n    Spectral width factor for wave periods larger than `tp` (-)\nsb : float, optional\n    Spectral width factor for wave periods smaller than `tp` (-)",
+            "type": "object",
+            "properties": {
+                "water_depth": {
+                    "title": "Water Depth",
+                    "type": "number"
+                },
+                "spectrum": {
+                    "title": "Spectrum",
+                    "type": "string"
+                },
+                "hs": {
+                    "title": "Hs",
+                    "type": "number"
+                },
+                "tp": {
+                    "title": "Tp",
+                    "type": "number"
+                },
+                "gamma": {
+                    "title": "Gamma",
+                    "default": 1.0,
+                    "type": "number"
+                },
+                "sa": {
+                    "title": "Sa",
+                    "default": 0.07,
+                    "type": "number"
+                },
+                "sb": {
+                    "title": "Sb",
+                    "default": 0.09,
+                    "type": "number"
+                }
+            },
+            "required": [
+                "water_depth",
+                "spectrum",
+                "hs",
+                "tp"
+            ]
+        }
+    }
+}
